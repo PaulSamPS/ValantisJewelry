@@ -1,0 +1,11 @@
+.app-link {
+	height: 20px;
+	color: var(--secondary);
+	text-decoration: none;
+	transition: color ease-in-out 0.2s;
+
+	&:hover {
+		color: var(--primary);
+	}
+}
+
