@@ -1,0 +1,40 @@
+.button {
+	padding: 10px 30px;
+	cursor: pointer;
+
+	&:disabled {
+		cursor: auto;
+		opacity: 0.4;
+	}
+}
+
+.clear {
+	color: var(--color);
+	background: none;
+	border: none;
+	outline: none;
+}
+
+.primary {
+	color: var(--white);
+	background: var(--primary);
+	border: none;
+	border-radius: 6px;
+	transition: filter ease-in-out .2s;
+
+	&:not([disabled]):hover {
+		filter: brightness(1.1);
+	}
+}
+
+.m {
+	font: var(--font-m);
+}
+
+.l {
+	font: var(--font-l);
+}
+
+.xl {
+	font: var(--font-xl);
+}

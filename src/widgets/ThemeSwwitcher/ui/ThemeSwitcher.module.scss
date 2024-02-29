@@ -1,0 +1,14 @@
+.theme-switcher {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--color);
+
+	svg {
+		transition: color ease-in-out 0.2s;
+
+		&:hover {
+			color: var(--primary);
+		}
+	}
+}
