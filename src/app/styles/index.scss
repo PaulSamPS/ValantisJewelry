@@ -1,0 +1,12 @@
+@import "reset";
+@import "globals";
+
+body {
+	color: var(--color);
+	font: var(--font-m);
+}
+
+.app {
+	min-height: 100vh;
+	background: var(--bg-color);
+}
