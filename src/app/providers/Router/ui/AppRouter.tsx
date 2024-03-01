@@ -10,7 +10,7 @@ export const AppRouter = memo(() => {
         <Suspense fallback={<Spinner />}>
             <Routes>
                 {routes.map(({ element, path }) => (
-                    <Route key={path} path={path} element={<div className='wrapper'>{element}</div>} />
+                    <Route key={path} path={path} element={element} />
                 ))}
             </Routes>
         </Suspense>

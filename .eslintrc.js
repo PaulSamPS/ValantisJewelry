@@ -4,10 +4,7 @@ module.exports = {
         es2021: true,
         jest: true,
     },
-    extends: [
-        'plugin:react/recommended',
-        'airbnb',
-    ],
+    extends: ['plugin:react/recommended', 'airbnb'],
     parser: '@typescript-eslint/parser',
     parserOptions: {
         ecmaFeatures: {
@@ -27,6 +24,7 @@ module.exports = {
                 extensions: ['.js', '.jsx', '.tsx'],
             },
         ],
+        'no-plusplus': 'off',
         'import/no-unresolved': 'off',
         'import/prefer-default-export': 'off',
         'no-unused-vars': 'warn',
@@ -58,7 +56,7 @@ module.exports = {
         'no-param-reassign': 'off',
         'no-useless-escape': 'off',
         'react/no-array-index-key': 'off',
-        'no-undef': 'off'
+        'no-undef': 'off',
     },
     globals: {
         __IS_DEV__: true,

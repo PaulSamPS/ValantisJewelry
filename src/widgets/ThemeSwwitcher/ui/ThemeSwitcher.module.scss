@@ -6,9 +6,10 @@
 
 	svg {
 		transition: color ease-in-out 0.2s;
+	}
 
-		&:hover {
-			color: var(--primary);
-		}
+	&:hover {
+		color: var(--primary);
 	}
 }
+

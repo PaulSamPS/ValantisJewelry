@@ -1,17 +1,20 @@
 import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useAppDispatch } from '@/shared/hooks';
 import { fetchProducts } from '@/entities/Products';
 import { AppLink } from '@/shared/ui/AppLink';
 import { AppRouter } from '@/app/providers/Router';
 import { ThemeSwitcher } from '@/widgets/ThemeSwwitcher';
 import styles from './App.module.scss';
+import { getCurrentPageState } from '@/entities/Products/model/selectors/getCurrentPageState';
 
 export const App = () => {
     const dispatch = useAppDispatch();
+    const currentPage = useSelector(getCurrentPageState);
 
     useEffect(() => {
-        dispatch(fetchProducts());
-    }, [dispatch]);
+        dispatch(fetchProducts({ offset: currentPage }));
+    }, [currentPage, dispatch]);
 
     return (
         <>

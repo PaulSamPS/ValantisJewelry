@@ -11,11 +11,13 @@ const getDate = () => {
     return year + month + date;
 };
 
+const today = new Date().toISOString().slice(0, 10).split('-').join('');
+
 const $apiAuth = axios.create({
     baseURL: __API__,
-    withCredentials: true,
     headers: {
-        'X-Auth': md5(`Valantis_${getDate()}`),
+        'X-Auth': md5(`Valantis_${today}`),
+        'Content-Type': 'application/json',
     },
 });
 

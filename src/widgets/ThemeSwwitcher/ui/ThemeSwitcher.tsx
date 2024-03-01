@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, { memo } from 'react';
+import React from 'react';
 import { ThemeLightIcon, ThemeDarkIcon } from '@/shared/assets/icons';
 import { Theme, useTheme } from '@/app/providers/ThemeProvider';
 import styles from './ThemeSwitcher.module.scss';
@@ -9,7 +9,7 @@ interface ThemeSwitcherProps {
     className?: string;
 }
 
-export const ThemeSwitcher = memo(({ className }: ThemeSwitcherProps) => {
+export const ThemeSwitcher = ({ className }: ThemeSwitcherProps) => {
     const { theme, toggleTheme } = useTheme();
 
     return (
@@ -23,4 +23,4 @@ export const ThemeSwitcher = memo(({ className }: ThemeSwitcherProps) => {
             {theme === Theme.DARK ? <ThemeDarkIcon /> : <ThemeLightIcon />}
         </Button>
     );
-});
+};

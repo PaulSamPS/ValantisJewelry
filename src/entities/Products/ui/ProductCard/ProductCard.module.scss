@@ -1,0 +1,22 @@
+.card {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 10px 0;
+}
+
+.id {
+}
+
+.brand {
+  justify-self: center;
+}
+
+.name {
+  font-weight: 500;
+  font-size: 14px;
+  justify-self: flex-start;
+}
+
+.price {
+  justify-self: flex-end;
+}
