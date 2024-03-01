@@ -1,0 +1,29 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 50px;
+  padding: 0 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.nav {
+  display: flex;
+  column-gap: 10px;
+}
+
+.main {
+  flex-grow: 1;
+  max-width: 1200px;
+  min-height: calc(100vh - 140px);
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  border-top: 1px solid var(--border-color);
+}

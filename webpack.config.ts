@@ -13,7 +13,7 @@ export default (env: BuildEnv) => {
 
     const mode = env.mode || 'development';
     const isDev = mode === 'development';
-    const apiUrl = env.apiUrl || 'http://api.valantis.store:40000/';
+    const apiUrl = env.apiUrl || 'https://api.valantis.store:41000/';
     const baseUrl = env.baseUrl || 'http://localhost:3000';
 
     const PORT = env.port || 3000;

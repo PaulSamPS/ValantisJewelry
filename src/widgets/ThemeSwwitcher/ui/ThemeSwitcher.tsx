@@ -13,7 +13,13 @@ export const ThemeSwitcher = memo(({ className }: ThemeSwitcherProps) => {
     const { theme, toggleTheme } = useTheme();
 
     return (
-        <Button size='m' appearance='clear' className={clsx(styles['theme-switcher'], className)} onClick={toggleTheme}>
+        <Button
+            size='m'
+            appearance='clear'
+            className={clsx(styles['theme-switcher'], className)}
+            onClick={toggleTheme}
+            aria-label='Сменить тему'
+        >
             {theme === Theme.DARK ? <ThemeDarkIcon /> : <ThemeLightIcon />}
         </Button>
     );
