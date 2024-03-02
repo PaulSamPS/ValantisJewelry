@@ -15,7 +15,7 @@
 	outline: none;
 	transition: all ease-in-out .2s;
 
-	&:hover {
+	&:hover:not([disabled]) {
 		color: var(--white);
 		background-color: var(--secondary);
 	}

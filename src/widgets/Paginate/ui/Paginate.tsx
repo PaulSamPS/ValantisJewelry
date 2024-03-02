@@ -1,16 +1,13 @@
 import React, { memo, ReactElement, useCallback } from 'react';
 import { useAppDispatch } from '@/shared/hooks';
 import { Button } from '@/shared/ui/Button';
-import { paginateActions } from '@/entities/Products/model/slice/pages.slice';
 import styles from './Paginate.module.scss';
 import { Text } from '@/shared/ui/Text';
+import { IPaginate } from '../model/types';
+import { paginateActions } from '@/entities/Products';
 
-interface IPaginate {
-    currentPage: number;
-    arr: number[];
-}
-const Paginate = memo(({ currentPage, arr }: IPaginate) => {
-    const [dotsArray, setDotsArray] = React.useState<ReactElement[]>(new Array(5).fill(<div />));
+export const Paginate = memo(({ currentPage, arr, isLoading }: IPaginate) => {
+    const [paginateArray, setPaginateArray] = React.useState<ReactElement[]>(new Array(5).fill(<div />));
     const dispatch = useAppDispatch();
     const start = arr[0];
     const end = arr.length - 1;
@@ -19,18 +16,18 @@ const Paginate = memo(({ currentPage, arr }: IPaginate) => {
         (number: number) => {
             dispatch(paginateActions.setCurrentPage(number));
             dispatch(paginateActions.setCurrentOffset(number * 50));
-            // window.scrollTo({ top: 0 });
+            window.scrollTo({ top: 0 });
         },
         [dispatch]
     );
 
-    const constructDots = useCallback(
+    const constructPaginate = useCallback(
         (newSlideIndex: number) => {
             let idxStart = 0;
-            let idxEnd = 3;
+            let idxEnd = 4;
 
             if (newSlideIndex >= idxEnd - 1) {
-                idxStart = newSlideIndex === end ? newSlideIndex - 3 : newSlideIndex - 2;
+                idxStart = newSlideIndex - 3;
                 if (newSlideIndex < end - 2) {
                     idxEnd = newSlideIndex + 1;
                 } else if (newSlideIndex < end - 1) {
@@ -41,9 +38,8 @@ const Paginate = memo(({ currentPage, arr }: IPaginate) => {
                     idxEnd = newSlideIndex - 1;
                 }
             }
-            console.log(idxStart, idxEnd);
 
-            const updateDots = arr
+            const updatePaginate = arr
                 .slice(start, end - 1)
                 .slice(idxStart, idxEnd)
                 .map((dot) => (
@@ -53,18 +49,19 @@ const Paginate = memo(({ currentPage, arr }: IPaginate) => {
                         key={dot}
                         type='button'
                         onClick={() => handleClick(dot)}
+                        disabled={isLoading}
                     >
                         {dot}
                     </Button>
                 ));
-            setDotsArray(updateDots);
+            setPaginateArray(updatePaginate);
         },
-        [arr, handleClick]
+        [arr, end, handleClick, isLoading, start]
     );
 
     React.useEffect(() => {
-        constructDots(currentPage);
-    }, [constructDots, currentPage]);
+        constructPaginate(currentPage);
+    }, [constructPaginate, currentPage]);
 
     return (
         <div className={styles.paginate}>
@@ -73,11 +70,12 @@ const Paginate = memo(({ currentPage, arr }: IPaginate) => {
                 size='m'
                 type='button'
                 onClick={() => handleClick(start)}
+                disabled={isLoading}
             >
                 {start}
             </Button>
             {currentPage > 2 && <Text weight='regular'>...</Text>}
-            {dotsArray.map((d, index) => (
+            {paginateArray.map((d, index) => (
                 <span key={index}>{d}</span>
             ))}
             {currentPage < arr.length - 2 && <Text weight='regular'>...</Text>}
@@ -86,11 +84,10 @@ const Paginate = memo(({ currentPage, arr }: IPaginate) => {
                 size='m'
                 type='button'
                 onClick={() => handleClick(end)}
+                disabled={isLoading}
             >
                 {end}
             </Button>
         </div>
     );
 });
-
-export default Paginate;

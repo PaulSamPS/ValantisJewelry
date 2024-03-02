@@ -1,10 +1,14 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Spinner } from '@/shared/ui/Spinner';
-import { getProductsIsLoadingState, getProductsState, ProductList } from '@/entities/Products';
-import Paginate from '@/widgets/Paginate/Paginate';
-import { getTotalPagesState } from '@/entities/Products/model/selectors/getTotalPagesState';
-import { getCurrentPageState } from '@/entities/Products/model/selectors/getCurrentPageState';
+import {
+    getCurrentPageState,
+    getProductsIsLoadingState,
+    getProductsState,
+    getTotalPagesState,
+    ProductList,
+} from '@/entities/Products';
+import { Paginate } from '@/widgets/Paginate';
 
 const Main = () => {
     const products = useSelector(getProductsState);
@@ -14,8 +18,8 @@ const Main = () => {
 
     return (
         <>
-            {/* {isLoading ? <Spinner /> : <ProductList products={products} />} */}
-            <Paginate currentPage={currentPage} arr={totalPages} />
+            {isLoading ? <Spinner /> : <ProductList products={products} />}
+            <Paginate currentPage={currentPage} arr={totalPages} isLoading={isLoading} />
         </>
     );
 };
