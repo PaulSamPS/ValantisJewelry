@@ -1,0 +1,20 @@
+.paginate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+
+  span {
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  button {
+    height: 40px;
+    border-radius: 0;
+    width: 50px;
+    padding: 0;
+  }
+}

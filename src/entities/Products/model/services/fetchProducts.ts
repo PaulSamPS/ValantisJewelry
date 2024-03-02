@@ -1,13 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
 import { IProduct, IProductReq, IProductResponse, IResponseArr } from '../types';
-import { productActions } from '@/entities/Products';
 import { removeDuplicate } from '@/entities/Products/model/lib/removeDublicate';
 
 export const fetchProducts = createAsyncThunk<IProduct[], IProductReq, ThunkConfig<string>>(
     'fetch/products',
     async ({ offset }, thunkAPI) => {
-        const { extra, dispatch, rejectWithValue } = thunkAPI;
+        const { extra, rejectWithValue } = thunkAPI;
         try {
             const productsArr = await extra.apiAuth.post<IResponseArr>('', {
                 action: 'get_ids',
@@ -26,16 +25,6 @@ export const fetchProducts = createAsyncThunk<IProduct[], IProductReq, ThunkConf
             if (!items.data) {
                 throw new Error();
             }
-
-            const productsAll = await extra.apiAuth.post<IResponseArr>('', {
-                action: 'get_ids',
-            });
-
-            if (!productsAll.data) {
-                throw new Error();
-            }
-
-            dispatch(productActions.setTotalPages(Math.ceil(productsAll.data.result.length / 50)));
 
             return removeDuplicate(items.data.result);
         } catch (e) {

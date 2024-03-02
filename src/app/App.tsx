@@ -6,15 +6,17 @@ import { AppLink } from '@/shared/ui/AppLink';
 import { AppRouter } from '@/app/providers/Router';
 import { ThemeSwitcher } from '@/widgets/ThemeSwwitcher';
 import styles from './App.module.scss';
-import { getCurrentPageState } from '@/entities/Products/model/selectors/getCurrentPageState';
+import { getCurrentOffsetState } from '@/entities/Products/model/selectors/getCurrentOffsetState';
+import { fetchTotalCountProducts } from '@/entities/Products/model/services/fetchTotalCountProducts';
 
 export const App = () => {
     const dispatch = useAppDispatch();
-    const currentPage = useSelector(getCurrentPageState);
+    const offset = useSelector(getCurrentOffsetState);
 
     useEffect(() => {
-        dispatch(fetchProducts({ offset: currentPage }));
-    }, [currentPage, dispatch]);
+        dispatch(fetchProducts({ offset }));
+        dispatch(fetchTotalCountProducts());
+    }, [offset, dispatch]);
 
     return (
         <>

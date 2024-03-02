@@ -16,9 +16,15 @@ export interface IProductReq {
     offset: number;
 }
 export interface ProductsSchema {
-    currentPage: number;
-    totalPages: number;
     products: IProduct[];
+    error: string | undefined;
+    isLoading: boolean;
+}
+
+export interface PaginatesSchema {
+    currentPage: number;
+    currentOffset: number;
+    totalPages: number[];
     error: string | undefined;
     isLoading: boolean;
 }

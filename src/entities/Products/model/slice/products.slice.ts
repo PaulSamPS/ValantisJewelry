@@ -3,8 +3,6 @@ import { fetchProducts } from '../services/fetchProducts';
 import { IProduct, ProductsSchema } from '../types';
 
 const initialState: ProductsSchema = {
-    currentPage: 0,
-    totalPages: 0,
     products: [],
     error: undefined,
     isLoading: false,
@@ -13,14 +11,7 @@ const initialState: ProductsSchema = {
 export const profileSlice = createSlice({
     name: 'products',
     initialState,
-    reducers: {
-        setTotalPages(state, action: PayloadAction<number>) {
-            state.totalPages = action.payload;
-        },
-        setCurrentPage(state, action: PayloadAction<number>) {
-            state.currentPage = action.payload;
-        },
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(fetchProducts.pending, (state) => {

@@ -3,11 +3,13 @@ import { StateSchema, ThunkExtraArg } from './StateSchema';
 import { createReducerManager } from './reduxManager';
 import { $apiAuth } from '@/shared/lib/axiosInterceptor';
 import { productsReducer } from '@/entities/Products';
+import { paginateReducer } from '@/entities/Products/model/slice/pages.slice';
 
 export const createReduxStore = (initialState?: StateSchema, asyncReducers?: ReducersMapObject<StateSchema>) => {
     const rootReducers: ReducersMapObject<StateSchema> = {
         ...asyncReducers,
         products: productsReducer,
+        paginate: paginateReducer,
     };
 
     const reducerManager = createReducerManager(rootReducers);
