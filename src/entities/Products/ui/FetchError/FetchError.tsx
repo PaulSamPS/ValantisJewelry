@@ -1,13 +1,12 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import styles from './PageError.module.scss';
+import styles from './FetchError.module.scss';
 import { Button } from '@/shared/ui/Button';
 import { Text } from '@/shared/ui/Text';
-import { getProductsErrorState } from '@/entities/Products';
 
-export const PageError = () => {
-    const error = useSelector(getProductsErrorState);
-
+interface FetchErrorProps {
+    error: string;
+}
+export const FetchError = ({ error }: FetchErrorProps) => {
     const reloadPage = () => {
         // eslint-disable-next-line no-restricted-globals
         location.reload();

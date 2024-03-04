@@ -1,8 +1,14 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import { Spinner } from '@/shared/ui/Spinner';
-import { fetchProducts, getProductsIsLoadingState, getProductsState, ProductList } from '@/entities/Products';
+import {
+    fetchProducts,
+    getProductsErrorState,
+    getProductsIsLoadingState,
+    getProductsState,
+    ProductList,
+} from '@/entities/Products';
 import {
     getPaginateOffsetState,
     getPaginatePageState,
@@ -10,6 +16,12 @@ import {
     Paginate,
 } from '@/features/Paginate';
 import { useAppDispatch } from '@/shared/hooks';
+import { FilterByName } from '@/features/FilterByName/FilterByName';
+import { FilterByPrice } from '@/features/FilterByPrice/FilterByPrice';
+import { FilterByBrand } from '@/features/FilterByBrand';
+import styles from './Main.module.scss';
+import { Button } from '@/shared/ui/Button';
+import { Title } from '@/shared/ui/Title';
 
 const Main = () => {
     const dispatch = useAppDispatch();
@@ -18,13 +30,27 @@ const Main = () => {
     const isLoading = useSelector(getProductsIsLoadingState);
     const totalPages = useSelector(getPaginateTotalPagesState);
     const currentPage = useSelector(getPaginatePageState);
-    const [searchParams] = useSearchParams();
+    const error = useSelector(getProductsErrorState);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [isDisabled, setIsDisabled] = useState<boolean>(false);
 
     useEffect(() => {
         if (!searchParams.get('search') && !searchParams.get('price') && !searchParams.get('brand')) {
             dispatch(fetchProducts({ offset }));
         }
     }, [dispatch, offset, searchParams]);
+
+    useEffect(() => {
+        if (searchParams.get('search')) {
+            setIsDisabled(false);
+        } else if (searchParams.get('price')) {
+            setIsDisabled(false);
+        } else if (searchParams.get('brand')) {
+            setIsDisabled(false);
+        } else {
+            setIsDisabled(true);
+        }
+    }, [searchParams]);
 
     const allProducts = useCallback(() => {
         if (searchParams.get('search') || searchParams.get('price') || searchParams.get('brand')) {
@@ -34,10 +60,20 @@ const Main = () => {
     }, [offset, products, searchParams]);
 
     return (
-        <>
-            {isLoading ? <Spinner /> : <ProductList products={allProducts()} />}
-            {totalPages?.length > 1 && <Paginate currentPage={currentPage} arr={totalPages} isLoading={isLoading} />}
-        </>
+        <div className={styles.wrapper}>
+            <section className={styles.top}>
+                <FilterByName />
+                <FilterByPrice />
+                <FilterByBrand />
+                <Button size='m' appearance='secondary' onClick={() => setSearchParams('page=1')} disabled={isDisabled}>
+                    Сбросить фильтры
+                </Button>
+            </section>
+            {isLoading ? <Spinner /> : <ProductList products={allProducts()} error={error!} />}
+            {totalPages?.length > 1 && !error && (
+                <Paginate currentPage={currentPage} arr={totalPages} isLoading={isLoading} />
+            )}
+        </div>
     );
 };
 export default Main;

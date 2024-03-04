@@ -30,7 +30,7 @@ export const fetchProducts = createAsyncThunk<IProduct[], IProductReq, ThunkConf
             return removeDuplicate(items.data.result);
         } catch (e) {
             fetchProducts({ offset });
-            return rejectWithValue('error');
+            return rejectWithValue('Ошибка загрузки данных');
         }
     }
 );

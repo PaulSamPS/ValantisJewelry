@@ -4,6 +4,7 @@ import { Text } from '@/shared/ui/Text';
 import { priceRub } from '@/shared/lib/priceRub';
 import styles from './ProductCard.module.scss';
 import { AppLink } from '@/shared/ui/AppLink';
+import { Paragraph } from '@/shared/ui/Paragraph/Paragraph';
 
 interface IProductCard {
     product: IProduct;
@@ -16,9 +17,9 @@ export const ProductCard = ({ product }: IProductCard) => (
         <Text weight='medium' className={styles.brand}>
             {product.brand}
         </Text>
-        <Text weight='medium' className={styles.name}>
+        <Paragraph weight='w3' className={styles.name}>
             {product.product}
-        </Text>
+        </Paragraph>
         <Text weight='medium' className={styles.price}>
             {priceRub(product.price)}
         </Text>

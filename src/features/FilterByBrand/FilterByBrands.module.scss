@@ -1,21 +1,41 @@
 .wrapper {
   display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.brand-list {
+  display: flex;
   flex-wrap: wrap;
   gap: 5px 10px;
   padding: 0;
-  list-style-type: none;
+}
 
-  li {
-    cursor: pointer;
-    transition: color ease-in-out .2s;
 
-    &:hover {
-      color: var(--secondary);
-    }
+.brand-name {
+  cursor: pointer;
+  transition: color ease-in-out .2s;
+
+  &:hover {
+    color: var(--primary);
   }
+}
+
+.loading {
+  justify-content: center;
+}
+
+.spinner {
+  min-height: unset !important;
 }
 
 .active {
   color: var(--primary);
   font-weight: 500;
+}
+
+.label {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
 }

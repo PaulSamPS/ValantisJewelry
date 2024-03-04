@@ -7,21 +7,34 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 50px;
+  height: 51px;
   padding: 0 20px;
   background-color: var(--bg-color);
   border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 4px 4px rgb(0 0 0 / 5%);
 }
 
 .nav {
-  display: flex;
-  column-gap: 10px;
+  width: 30px;
+  height: 30px;
+
+  a {
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+
+    img {
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+    }
+  }
+
 }
 
 .main {
   flex-grow: 1;
   max-width: 1200px;
-  min-height: calc(100vh - 140px);
+  min-height: calc(100vh - 143px);
   margin: 51px auto 0;
   padding: 20px 0;
 }

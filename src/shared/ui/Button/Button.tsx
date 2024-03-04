@@ -4,7 +4,7 @@ import styles from './Button.module.scss';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     size: 's' | 'm' | 'l';
-    appearance: 'primary' | 'clear';
+    appearance: 'primary' | 'secondary' | 'clear';
 }
 
 export const Button = ({ className, children, appearance, size = 'm', ...otherProps }: ButtonProps) => {

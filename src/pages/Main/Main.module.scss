@@ -1,0 +1,13 @@
+.wrapper {
+
+}
+
+.top {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  padding: 20px;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  margin-bottom: 20px;
+}

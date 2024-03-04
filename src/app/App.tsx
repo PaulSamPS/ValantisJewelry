@@ -7,9 +7,7 @@ import { ThemeSwitcher } from '@/widgets/ThemeSwwitcher';
 import styles from './App.module.scss';
 import { paginateActions, fetchTotalCountProducts } from '@/features/Paginate';
 import { fetchBrands } from '@/entities/Brands/model/services/fetchBrands';
-import { FilterByName } from '@/features/FilterByName/FilterByName';
-import { FilterByPrice } from '@/features/FilterByPrice/FilterByPrice';
-import { FilterByBrand } from '@/features/FilterByBrand/FilterByBrand';
+import { Text } from '@/shared/ui/Text';
 
 export const App = () => {
     const dispatch = useAppDispatch();
@@ -34,15 +32,14 @@ export const App = () => {
         <>
             <header className={styles.header}>
                 <nav className={styles.nav}>
-                    <AppLink to={{ pathname: '/', search: 'page=1' }}>Main</AppLink>
-                    <AppLink to={`${__BASE_URL__}/product`}>Product</AppLink>
+                    <AppLink to={{ pathname: '/', search: 'page=1' }}>
+                        <img src='/logo.png' alt='Logo' width={30} height={30} />
+                        <Text weight='medium'>Valantis</Text>
+                    </AppLink>
                 </nav>
                 <ThemeSwitcher />
             </header>
             <main className={styles.main}>
-                <FilterByName />
-                <FilterByPrice />
-                <FilterByBrand />
                 <AppRouter />
             </main>
             <footer className={styles.footer}>{new Date().getFullYear()}</footer>

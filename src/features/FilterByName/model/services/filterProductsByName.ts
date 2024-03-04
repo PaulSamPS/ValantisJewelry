@@ -38,7 +38,7 @@ export const filterProductsByName = createAsyncThunk<IProduct[], IFilterByNamePr
 
             return products;
         } catch (e) {
-            return rejectWithValue('error');
+            return rejectWithValue('Ошибка загрузки данных');
         }
     }
 );
