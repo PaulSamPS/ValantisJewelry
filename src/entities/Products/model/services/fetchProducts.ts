@@ -1,14 +1,15 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
-import { IProduct, IProductReq, IProductResponse, IResponseArr } from '../types';
-import { removeDuplicate } from '@/entities/Products/model/lib/removeDublicate';
+import { IProduct, IProductReq, IProductResponse } from '../types';
+import { removeDuplicate } from '@/shared/lib/removeDublicate';
+import { IResponse } from '@/shared/types';
 
 export const fetchProducts = createAsyncThunk<IProduct[], IProductReq, ThunkConfig<string>>(
     'fetch/products',
     async ({ offset }, thunkAPI) => {
         const { extra, rejectWithValue } = thunkAPI;
         try {
-            const productsArr = await extra.apiAuth.post<IResponseArr>('', {
+            const productsArr = await extra.apiAuth.post<IResponse>('', {
                 action: 'get_ids',
                 params: { offset, limit: 50 },
             });
@@ -28,6 +29,7 @@ export const fetchProducts = createAsyncThunk<IProduct[], IProductReq, ThunkConf
 
             return removeDuplicate(items.data.result);
         } catch (e) {
+            fetchProducts({ offset });
             return rejectWithValue('error');
         }
     }

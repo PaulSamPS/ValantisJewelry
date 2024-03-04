@@ -24,6 +24,7 @@ module.exports = {
                 extensions: ['.js', '.jsx', '.tsx'],
             },
         ],
+        'no-sequences': 'warn',
         'no-plusplus': 'off',
         'import/no-unresolved': 'off',
         'import/prefer-default-export': 'off',

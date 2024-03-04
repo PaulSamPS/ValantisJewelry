@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { PaginatesSchema } from '../types';
-import { fetchTotalCountProducts } from '@/entities/Products/model/services/fetchTotalCountProducts';
+import { fetchTotalCountProducts } from '../services/fetchTotalCountProducts';
 
 const initialState: PaginatesSchema = {
     currentPage: 1,
@@ -14,11 +14,22 @@ export const paginateSlice = createSlice({
     name: 'paginate',
     initialState,
     reducers: {
+        setQueryPage(state, action: PayloadAction<number>) {
+            state.currentPage = action.payload;
+        },
         setCurrentPage(state, action: PayloadAction<number>) {
             state.currentPage = action.payload;
         },
         setCurrentOffset(state, action: PayloadAction<number>) {
             state.currentOffset = action.payload;
+        },
+        setTotalPages(state, action: PayloadAction<number>) {
+            const newTotal: number[] = [];
+            for (let i = 1; i < action.payload + 1; i++) {
+                newTotal.push(i);
+            }
+
+            state.totalPages = newTotal;
         },
     },
     extraReducers: (builder) => {

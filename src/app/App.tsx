@@ -1,33 +1,48 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
 import { useAppDispatch } from '@/shared/hooks';
-import { fetchProducts } from '@/entities/Products';
 import { AppLink } from '@/shared/ui/AppLink';
 import { AppRouter } from '@/app/providers/Router';
 import { ThemeSwitcher } from '@/widgets/ThemeSwwitcher';
 import styles from './App.module.scss';
-import { getCurrentOffsetState } from '@/entities/Products/model/selectors/getCurrentOffsetState';
-import { fetchTotalCountProducts } from '@/entities/Products/model/services/fetchTotalCountProducts';
+import { paginateActions, fetchTotalCountProducts } from '@/features/Paginate';
+import { fetchBrands } from '@/entities/Brands/model/services/fetchBrands';
+import { FilterByName } from '@/features/FilterByName/FilterByName';
+import { FilterByPrice } from '@/features/FilterByPrice/FilterByPrice';
+import { FilterByBrand } from '@/features/FilterByBrand/FilterByBrand';
 
 export const App = () => {
     const dispatch = useAppDispatch();
-    const offset = useSelector(getCurrentOffsetState);
+    const [searchParams] = useSearchParams();
 
     useEffect(() => {
-        dispatch(fetchProducts({ offset }));
-        dispatch(fetchTotalCountProducts());
-    }, [offset, dispatch]);
+        if (searchParams.get('page')) {
+            const queryPage = searchParams.get('page');
+            dispatch(paginateActions.setQueryPage(Number(queryPage)));
+            dispatch(paginateActions.setCurrentOffset((Number(queryPage) - 1) * 50));
+        }
+        if (!searchParams.get('search') && !searchParams.get('price') && !searchParams.get('brand')) {
+            dispatch(fetchTotalCountProducts());
+        }
+    }, [dispatch, searchParams]);
+
+    useEffect(() => {
+        dispatch(fetchBrands());
+    }, [dispatch]);
 
     return (
         <>
             <header className={styles.header}>
                 <nav className={styles.nav}>
-                    <AppLink to={`${__BASE_URL__}`}>Main</AppLink>
+                    <AppLink to={{ pathname: '/', search: 'page=1' }}>Main</AppLink>
                     <AppLink to={`${__BASE_URL__}/product`}>Product</AppLink>
                 </nav>
                 <ThemeSwitcher />
             </header>
             <main className={styles.main}>
+                <FilterByName />
+                <FilterByPrice />
+                <FilterByBrand />
                 <AppRouter />
             </main>
             <footer className={styles.footer}>{new Date().getFullYear()}</footer>

@@ -1,6 +1,3 @@
-export interface IResponseArr {
-    result: string[];
-}
 export interface IProduct {
     brand: null;
     id: string;
@@ -17,14 +14,6 @@ export interface IProductReq {
 }
 export interface ProductsSchema {
     products: IProduct[];
-    error: string | undefined;
-    isLoading: boolean;
-}
-
-export interface PaginatesSchema {
-    currentPage: number;
-    currentOffset: number;
-    totalPages: number[];
     error: string | undefined;
     isLoading: boolean;
 }

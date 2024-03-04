@@ -1,22 +1,24 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
-import { IResponseArr } from '../types';
+import { IResponse } from '@/shared/types';
+import { removeDublicateString } from '@/shared/lib/removeDublicateString';
 
 export const fetchTotalCountProducts = createAsyncThunk<number, void, ThunkConfig<string>>(
     'fetch/totalCountProducts',
     async (_, thunkAPI) => {
-        const { extra, dispatch, rejectWithValue } = thunkAPI;
+        const { extra, rejectWithValue } = thunkAPI;
         try {
-            const productsAll = await extra.apiAuth.post<IResponseArr>('', {
+            const productsAll = await extra.apiAuth.post<IResponse>('', {
                 action: 'get_ids',
             });
 
             if (!productsAll.data) {
                 throw new Error();
             }
-            console.log(productsAll.data.result.length);
 
-            return Math.ceil(productsAll.data.result.length / 50);
+            const total = removeDublicateString(productsAll.data.result);
+
+            return Math.ceil(total.length / 50);
         } catch (e) {
             return rejectWithValue('error');
         }
