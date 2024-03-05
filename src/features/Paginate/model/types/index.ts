@@ -1,4 +1,4 @@
-export interface IPaginate {
+export interface PaginateProps {
     currentPage: number;
     arr: number[];
     isLoading: boolean;

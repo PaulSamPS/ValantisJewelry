@@ -4,10 +4,10 @@ import { useAppDispatch } from '@/shared/hooks';
 import { Button } from '@/shared/ui/Button';
 import styles from './Paginate.module.scss';
 import { Text } from '@/shared/ui/Text';
-import { IPaginate } from '../model/types';
+import { PaginateProps } from '../model/types';
 import { paginateActions } from '../model/slice/paginate.slice';
 
-export const Paginate = memo(({ currentPage, arr, isLoading }: IPaginate) => {
+export const Paginate = memo(({ currentPage, arr, isLoading }: PaginateProps) => {
     const [paginateArray, setPaginateArray] = React.useState<ReactElement[]>(new Array(5).fill(<div />));
     const dispatch = useAppDispatch();
     const [searchParams, setSearchParams] = useSearchParams();

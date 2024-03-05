@@ -21,7 +21,6 @@ import { FilterByPrice } from '@/features/FilterByPrice/FilterByPrice';
 import { FilterByBrand } from '@/features/FilterByBrand';
 import styles from './Main.module.scss';
 import { Button } from '@/shared/ui/Button';
-import { Title } from '@/shared/ui/Title';
 
 const Main = () => {
     const dispatch = useAppDispatch();
