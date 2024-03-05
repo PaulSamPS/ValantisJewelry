@@ -20,6 +20,7 @@ export const fetchTotalCountProducts = createAsyncThunk<number, void, ThunkConfi
 
             return Math.ceil(total.length / 50);
         } catch (e) {
+            fetchTotalCountProducts();
             return rejectWithValue('error');
         }
     }

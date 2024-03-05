@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { useAppDispatch } from '@/shared/hooks';
+import { useAppDispatch, useScrollY } from '@/shared/hooks';
 import { AppLink } from '@/shared/ui/AppLink';
 import { AppRouter } from '@/app/providers/Router';
 import { ThemeSwitcher } from '@/widgets/ThemeSwwitcher';
@@ -8,6 +8,7 @@ import styles from './App.module.scss';
 import { paginateActions, fetchTotalCountProducts } from '@/features/Paginate';
 import { fetchBrands } from '@/entities/Brands/model/services/fetchBrands';
 import { Text } from '@/shared/ui/Text';
+import { ScrollUp } from '@/widgets/ScrollUp/ScrollUp';
 
 export const App = () => {
     const dispatch = useAppDispatch();
@@ -33,7 +34,7 @@ export const App = () => {
             <header className={styles.header}>
                 <nav className={styles.nav}>
                     <AppLink to={{ pathname: '/', search: 'page=1' }}>
-                        <img src='/logo.png' alt='Logo' width={30} height={30} />
+                        <img src='./assets/logo.png' alt='Logo' width={30} height={30} />
                         <Text weight='medium'>Valantis</Text>
                     </AppLink>
                 </nav>
@@ -41,6 +42,7 @@ export const App = () => {
             </header>
             <main className={styles.main}>
                 <AppRouter />
+                <ScrollUp />
             </main>
             <footer className={styles.footer}>{new Date().getFullYear()}</footer>
         </>

@@ -10,12 +10,12 @@ const root = createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
     <BrowserRouter>
-        <StoreProvider>
-            <ErrorBoundary>
+        <ErrorBoundary>
+            <StoreProvider>
                 <ThemeProvider>
                     <App />
                 </ThemeProvider>
-            </ErrorBoundary>
-        </StoreProvider>
+            </StoreProvider>
+        </ErrorBoundary>
     </BrowserRouter>
 );

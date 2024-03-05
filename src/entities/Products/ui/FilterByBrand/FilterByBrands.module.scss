@@ -16,9 +16,14 @@
   cursor: pointer;
   transition: color ease-in-out .2s;
 
-  &:hover {
+  &:hover:not([aria-disabled=true]) {
     color: var(--primary);
   }
+}
+
+.disabled {
+  cursor: default;
+  opacity: 0.5;
 }
 
 .loading {

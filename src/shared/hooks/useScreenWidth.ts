@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 
 export const useScreenWidth = (): number => {
-    const [screenWidth, setScreenWidth] = useState<number>(1000);
+    const [screenWidth, setScreenWidth] = useState<number>(0);
 
     const debounce = (func: () => void) => {
         let timer: number | undefined;

@@ -1,9 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { fetchProducts } from '../services/fetchProducts';
+import { fetchProducts, filterProductsByBrand, filterProductsByName, filterProductsByPrice } from '../services';
 import { IProduct, ProductsSchema } from '../types';
-import { filterProductsByBrand } from '@/features/FilterByBrand/model/services/filterProductsByBrand';
-import { filterProductsByPrice } from '@/features/FilterByPrice/model/services/filterProductsByPrice';
-import { filterProductsByName } from '@/features/FilterByName/model/services/filterProductsByName';
 
 const initialState: ProductsSchema = {
     products: [],
@@ -22,6 +19,7 @@ export const profileSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(fetchProducts.pending, (state) => {
+                state.products = [];
                 state.error = undefined;
                 state.isLoading = true;
             })
@@ -35,6 +33,7 @@ export const profileSlice = createSlice({
                 state.error = action.payload;
             })
             .addCase(filterProductsByBrand.pending, (state) => {
+                state.products = [];
                 state.error = undefined;
                 state.isLoading = true;
             })
@@ -48,6 +47,7 @@ export const profileSlice = createSlice({
                 state.error = action.payload;
             })
             .addCase(filterProductsByPrice.pending, (state) => {
+                state.products = [];
                 state.error = undefined;
                 state.isLoading = true;
             })
@@ -61,6 +61,7 @@ export const profileSlice = createSlice({
                 state.error = action.payload;
             })
             .addCase(filterProductsByName.pending, (state) => {
+                state.products = [];
                 state.error = undefined;
                 state.isLoading = true;
             })

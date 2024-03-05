@@ -6,17 +6,17 @@ import { paginateActions } from '@/features/Paginate';
 import { removeDuplicate } from '@/shared/lib/removeDublicate';
 
 interface IFilterByNameProps {
-    product: string;
+    price: number;
 }
 
-export const filterProductsByName = createAsyncThunk<IProduct[], IFilterByNameProps, ThunkConfig<string>>(
-    'filter/byName',
-    async ({ product }, thunkAPI) => {
+export const filterProductsByPrice = createAsyncThunk<IProduct[], IFilterByNameProps, ThunkConfig<string>>(
+    'filter/byPrice',
+    async ({ price }, thunkAPI) => {
         const { extra, dispatch, rejectWithValue } = thunkAPI;
         try {
             const productsArr = await extra.apiAuth.post<IResponse>('', {
                 action: 'filter',
-                params: { product },
+                params: { price },
             });
 
             if (!productsArr.data) {
@@ -38,6 +38,7 @@ export const filterProductsByName = createAsyncThunk<IProduct[], IFilterByNamePr
 
             return products;
         } catch (e) {
+            filterProductsByPrice({ price });
             return rejectWithValue('Ошибка загрузки данных');
         }
     }
