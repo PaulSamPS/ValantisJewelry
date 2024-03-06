@@ -2,7 +2,7 @@ import React from 'react';
 import { IProduct } from '../../model/types';
 import { ProductCard } from '../ProductCard';
 import styles from './ProductList.module.scss';
-import { FetchError } from '../FetchError';
+import { FetchError } from '../../../../widgets/FetchError';
 import { Text } from '@/shared/ui/Text';
 
 interface ProductListProps {

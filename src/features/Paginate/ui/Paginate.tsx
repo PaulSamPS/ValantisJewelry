@@ -22,7 +22,7 @@ export const Paginate = memo(({ currentPage, arr, isLoading }: PaginateProps) =>
             dispatch(paginateActions.setCurrentOffset((number - 1) * 50));
             window.scrollTo({ top: 0 });
         },
-        [dispatch, searchParams, setSearchParams]
+        [dispatch, searchParams]
     );
 
     const constructPaginate = useCallback(

@@ -3,11 +3,19 @@
 @import "themes/normal";
 @import "themes/dark";
 
+html{
+	height: 100%;
+}
+
 body {
+	overflow-y: scroll;
 	color: var(--color);
 	font: var(--font-m);
 }
 
 .app {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
 	background: var(--bg-color);
 }

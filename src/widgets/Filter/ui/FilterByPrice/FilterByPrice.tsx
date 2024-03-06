@@ -2,35 +2,33 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '@/shared/hooks';
-import { filterProductsByPrice } from '../../model/services/filterProductsByPrice';
+import { byPrice } from '../../../../entities/Products/model/services/byPrice';
 import { Input } from '@/shared/ui/Input';
 import { Button } from '@/shared/ui/Button';
 import styles from './FilterByPrice.module.scss';
-import { getProductsIsLoadingState } from '@/entities/Products';
+import { productSelectors } from '@/entities/Products';
 
 const REGEXP = /[\D]+/g;
 export const FilterByPrice = () => {
-    const [value, setValue] = useState<string>('');
     const dispatch = useAppDispatch();
+    const isLoading = useSelector(productSelectors.isLoading);
+    const [value, setValue] = useState<string>('');
     const [searchParams, setSearchParams] = useSearchParams();
-    const isLoading = useSelector(getProductsIsLoadingState);
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         setValue(e.target.value.replace(REGEXP, ''));
     };
 
-    console.log(value.length <= 0 && isLoading);
-
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         setSearchParams({ price: `${value}`, page: '1' });
-        dispatch(filterProductsByPrice({ price: Number(value)! })).finally(() => setValue(''));
+        dispatch(byPrice({ price: Number(value)! })).finally(() => setValue(''));
     };
 
     useEffect(() => {
         if (searchParams.get('price')) {
             const queryValue = searchParams.get('price');
-            dispatch(filterProductsByPrice({ price: Number(queryValue!) }));
+            dispatch(byPrice({ price: Number(queryValue!) }));
         }
     }, []);
 

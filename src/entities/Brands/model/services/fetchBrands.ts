@@ -17,6 +17,6 @@ export const fetchBrands = createAsyncThunk<string[], void, ThunkConfig<string>>
 
         return removeDublicateString(resBrands.data.result).sort();
     } catch (e) {
-        return rejectWithValue('error');
+        return rejectWithValue('Ошибка загрузки данных');
     }
 });

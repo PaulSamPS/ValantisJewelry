@@ -32,15 +32,14 @@
 }
 
 .main {
-  flex-grow: 1;
-  max-width: 1200px;
-  min-height: calc(100vh - 143px);
-  margin: 51px auto 0;
-  padding: 20px 0;
+  flex: 1 0 auto;
+  width: 1200px;
+  margin: 71px auto 20px;
 }
 
 .footer {
   display: flex;
+  flex: 0 0 auto;
   align-items: center;
   justify-content: center;
   height: 50px;

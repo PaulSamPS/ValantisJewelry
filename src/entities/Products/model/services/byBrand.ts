@@ -9,7 +9,7 @@ interface IFilterByNameProps {
     brand: string | null;
 }
 
-export const filterProductsByBrand = createAsyncThunk<IProduct[], IFilterByNameProps, ThunkConfig<string>>(
+export const byBrand = createAsyncThunk<IProduct[], IFilterByNameProps, ThunkConfig<string>>(
     'filter/byBrand',
     async ({ brand }, thunkAPI) => {
         const { extra, dispatch, rejectWithValue } = thunkAPI;

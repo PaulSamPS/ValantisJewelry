@@ -1,108 +1,56 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useSearchParams } from 'react-router-dom';
-import { FilterByBrand } from '@/entities/Products/ui/FilterByBrand';
 import { Spinner } from '@/shared/ui/Spinner';
-import {
-    fetchProducts,
-    getProductsErrorState,
-    getProductsIsLoadingState,
-    getProductsState,
-    ProductList,
-} from '@/entities/Products';
-import {
-    getPaginateOffsetState,
-    getPaginatePageState,
-    getPaginateTotalPagesState,
-    Paginate,
-} from '@/features/Paginate';
-import { useAppDispatch } from '@/shared/hooks';
-import { FilterByName } from '@/entities/Products/ui/FilterByName/FilterByName';
-import { FilterByPrice } from '@/entities/Products/ui/FilterByPrice/FilterByPrice';
+import { fetchProducts, productSelectors, ProductList } from '@/entities/Products';
+import { Paginate, paginateSelectors } from '@/features/Paginate';
+import { useAppDispatch, useQuery } from '@/shared/hooks';
 import styles from './Main.module.scss';
-import { Button } from '@/shared/ui/Button';
 import { Title } from '@/shared/ui/Title';
-import { priceRub } from '@/shared/lib/priceRub';
+import { Filter } from '@/widgets/Filter/ui/Filter';
 
 const Main = () => {
     const dispatch = useAppDispatch();
-    const offset = useSelector(getPaginateOffsetState);
-    const products = useSelector(getProductsState);
-    const isLoading = useSelector(getProductsIsLoadingState);
-    const totalPages = useSelector(getPaginateTotalPagesState);
-    const currentPage = useSelector(getPaginatePageState);
-    const error = useSelector(getProductsErrorState);
-    const [searchParams, setSearchParams] = useSearchParams();
-    const [isDisabled, setIsDisabled] = useState<boolean>(false);
-    const [isSearchParamsValue, setIsSearchParamsValue] = useState<string>('');
+    const offset = useSelector(paginateSelectors.currentOffset);
+    const totalPages = useSelector(paginateSelectors.totalPages);
+    const currentPage = useSelector(paginateSelectors.currentPage);
+    const products = useSelector(productSelectors.products);
+    const isLoading = useSelector(productSelectors.isLoading);
+    const error = useSelector(productSelectors.error);
+    const { isQuery, queryValue } = useQuery();
 
     useEffect(() => {
-        if (!searchParams.get('search') && !searchParams.get('price') && !searchParams.get('brand')) {
-            dispatch(fetchProducts({ offset }));
+        if (isQuery) {
+            dispatch(fetchProducts.all({ offset }));
         }
-    }, [dispatch, offset, searchParams]);
-
-    useEffect(() => {
-        if (searchParams.has('search')) {
-            setIsSearchParamsValue(`${searchParams.get('search')}`);
-            setIsDisabled(false);
-        } else if (searchParams.has('price')) {
-            setIsSearchParamsValue(`цене ${priceRub(Number(searchParams.get('price')))}`);
-            setIsDisabled(false);
-        } else if (searchParams.has('brand')) {
-            const query = searchParams.get('brand');
-            if (query === 'null') {
-                setIsSearchParamsValue('продуктам без бренда');
-            } else {
-                setIsSearchParamsValue(`бренду ${searchParams.get('brand')}`);
-            }
-            setIsDisabled(false);
-        } else {
-            setIsSearchParamsValue('');
-            setIsDisabled(true);
-        }
-    }, [searchParams]);
+    }, [dispatch, isQuery, offset]);
 
     const allProducts = useCallback(() => {
-        if (searchParams.get('search') || searchParams.get('price') || searchParams.get('brand')) {
+        if (!isQuery) {
             return products?.slice(offset, offset + 50);
         }
         return products;
-    }, [offset, products, searchParams]);
+    }, [offset, products]);
 
     return (
         <section className={styles.wrapper}>
             <Title weight='medium' size='h1'>
                 Поиск товаров
             </Title>
-            <div className={styles.top}>
-                <FilterByName />
-                <FilterByPrice />
-                <FilterByBrand />
-                <Button
-                    size='m'
-                    appearance='secondary'
-                    onClick={() => setSearchParams('page=1')}
-                    disabled={isDisabled || isLoading}
-                >
-                    Сбросить фильтры
-                </Button>
-            </div>
-
+            <Filter />
             {isLoading ? (
                 <Spinner />
             ) : (
                 <>
-                    {isSearchParamsValue && (
+                    {queryValue && (
                         <Title weight='medium' size='h2'>
                             {`Результатаы поиска по  
-                    ${isSearchParamsValue}`}
+                                ${queryValue}`}
                         </Title>
                     )}
                     <ProductList products={allProducts()} error={error!} />
                 </>
             )}
-            {totalPages?.length > 1 && !error && (
+            {totalPages?.length > 1 && !error && !isLoading && (
                 <Paginate currentPage={currentPage} arr={totalPages} isLoading={isLoading} />
             )}
         </section>

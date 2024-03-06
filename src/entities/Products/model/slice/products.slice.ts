@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { fetchProducts, filterProductsByBrand, filterProductsByName, filterProductsByPrice } from '../services';
+import { all, byBrand, byName, byPrice } from '../services';
 import { IProduct, ProductsSchema } from '../types';
 
 const initialState: ProductsSchema = {
@@ -18,59 +18,59 @@ export const profileSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(fetchProducts.pending, (state) => {
+            .addCase(all.pending, (state) => {
                 state.products = [];
                 state.error = undefined;
                 state.isLoading = true;
             })
-            .addCase(fetchProducts.fulfilled, (state, action: PayloadAction<IProduct[]>) => {
+            .addCase(all.fulfilled, (state, action: PayloadAction<IProduct[]>) => {
                 state.products = action.payload;
                 state.error = undefined;
                 state.isLoading = false;
             })
-            .addCase(fetchProducts.rejected, (state, action) => {
+            .addCase(all.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
             })
-            .addCase(filterProductsByBrand.pending, (state) => {
+            .addCase(byBrand.pending, (state) => {
                 state.products = [];
                 state.error = undefined;
                 state.isLoading = true;
             })
-            .addCase(filterProductsByBrand.fulfilled, (state, action: PayloadAction<IProduct[]>) => {
+            .addCase(byBrand.fulfilled, (state, action: PayloadAction<IProduct[]>) => {
                 state.products = action.payload;
                 state.error = undefined;
                 state.isLoading = false;
             })
-            .addCase(filterProductsByBrand.rejected, (state, action) => {
+            .addCase(byBrand.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
             })
-            .addCase(filterProductsByPrice.pending, (state) => {
+            .addCase(byPrice.pending, (state) => {
                 state.products = [];
                 state.error = undefined;
                 state.isLoading = true;
             })
-            .addCase(filterProductsByPrice.fulfilled, (state, action: PayloadAction<IProduct[]>) => {
+            .addCase(byPrice.fulfilled, (state, action: PayloadAction<IProduct[]>) => {
                 state.products = action.payload;
                 state.error = undefined;
                 state.isLoading = false;
             })
-            .addCase(filterProductsByPrice.rejected, (state, action) => {
+            .addCase(byPrice.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
             })
-            .addCase(filterProductsByName.pending, (state) => {
+            .addCase(byName.pending, (state) => {
                 state.products = [];
                 state.error = undefined;
                 state.isLoading = true;
             })
-            .addCase(filterProductsByName.fulfilled, (state, action: PayloadAction<IProduct[]>) => {
+            .addCase(byName.fulfilled, (state, action: PayloadAction<IProduct[]>) => {
                 state.products = action.payload;
                 state.error = undefined;
                 state.isLoading = false;
             })
-            .addCase(filterProductsByName.rejected, (state, action) => {
+            .addCase(byName.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
             });

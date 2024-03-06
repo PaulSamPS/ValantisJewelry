@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { useAppDispatch, useScrollY } from '@/shared/hooks';
+import { useAppDispatch, useQuery } from '@/shared/hooks';
 import { AppLink } from '@/shared/ui/AppLink';
 import { AppRouter } from '@/app/providers/Router';
 import { ThemeSwitcher } from '@/widgets/ThemeSwwitcher';
@@ -13,17 +13,18 @@ import { ScrollUp } from '@/widgets/ScrollUp/ScrollUp';
 export const App = () => {
     const dispatch = useAppDispatch();
     const [searchParams] = useSearchParams();
+    const { isQuery } = useQuery();
 
     useEffect(() => {
-        if (searchParams.get('page')) {
+        if (searchParams.has('page')) {
             const queryPage = searchParams.get('page');
             dispatch(paginateActions.setQueryPage(Number(queryPage)));
             dispatch(paginateActions.setCurrentOffset((Number(queryPage) - 1) * 50));
         }
-        if (!searchParams.get('search') && !searchParams.get('price') && !searchParams.get('brand')) {
+        if (isQuery) {
             dispatch(fetchTotalCountProducts());
         }
-    }, [dispatch, searchParams]);
+    }, [dispatch, isQuery, searchParams]);
 
     useEffect(() => {
         dispatch(fetchBrands());
@@ -44,7 +45,10 @@ export const App = () => {
                 <AppRouter />
                 <ScrollUp />
             </main>
-            <footer className={styles.footer}>{new Date().getFullYear()}</footer>
+            <footer className={styles.footer}>
+                Valantis&copy;
+                {new Date().getFullYear()}
+            </footer>
         </>
     );
 };

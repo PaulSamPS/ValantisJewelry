@@ -1,6 +1,7 @@
 html {
   line-height: 1.15;
   text-size-adjust: 100%;
+  overflow: visible;
 }
 
 * {
@@ -25,7 +26,6 @@ h1 {
 hr {
   box-sizing: content-box;
   height: 0;
-  overflow: visible;
 }
 
 a {

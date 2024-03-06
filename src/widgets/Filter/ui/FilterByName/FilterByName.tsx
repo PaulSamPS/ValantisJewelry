@@ -1,29 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { filterProductsByName } from '../../model/services/filterProductsByName';
+import { byName } from '../../../../entities/Products/model/services/byName';
 import { useAppDispatch } from '@/shared/hooks';
 import { Input } from '@/shared/ui/Input';
 import styles from './FilterByName.module.scss';
 import { Button } from '@/shared/ui/Button';
-import { getProductsIsLoadingState } from '@/entities/Products';
+import { productSelectors } from '@/entities/Products';
 
 export const FilterByName = () => {
-    const [value, setValue] = useState('');
     const dispatch = useAppDispatch();
+    const isLoading = useSelector(productSelectors.isLoading);
+    const [value, setValue] = useState('');
     const [searchParams, setSearchParams] = useSearchParams();
-    const isLoading = useSelector(getProductsIsLoadingState);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         setSearchParams({ search: `${value}`, page: '1' });
-        dispatch(filterProductsByName({ product: value })).finally(() => setValue(''));
+        dispatch(byName({ product: value })).finally(() => setValue(''));
     };
 
     useEffect(() => {
         if (searchParams.get('search')) {
             const queryValue = searchParams.get('search');
-            dispatch(filterProductsByName({ product: queryValue! }));
+            dispatch(byName({ product: queryValue! }));
         }
     }, []);
 
