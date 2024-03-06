@@ -1,14 +1,17 @@
 import React, { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
 import { Spinner } from '@/shared/ui/Spinner';
 import { fetchProducts, productSelectors, ProductList } from '@/entities/Products';
-import { Paginate, paginateSelectors } from '@/features/Paginate';
+import { fetchTotalCountProducts, Paginate, paginateActions, paginateSelectors } from '@/features/Paginate';
 import { useAppDispatch, useQuery } from '@/shared/hooks';
 import styles from './Main.module.scss';
 import { Title } from '@/shared/ui/Title';
 import { Filter } from '@/widgets/Filter/ui/Filter';
+import { fetchBrands } from '@/entities/Brands/model/services/fetchBrands';
 
 const Main = () => {
+    const { isQuery, queryValue } = useQuery();
     const dispatch = useAppDispatch();
     const offset = useSelector(paginateSelectors.currentOffset);
     const totalPages = useSelector(paginateSelectors.totalPages);
@@ -16,20 +19,35 @@ const Main = () => {
     const products = useSelector(productSelectors.products);
     const isLoading = useSelector(productSelectors.isLoading);
     const error = useSelector(productSelectors.error);
-    const { isQuery, queryValue } = useQuery();
+    const [searchParams] = useSearchParams();
 
     useEffect(() => {
-        if (isQuery) {
+        if (searchParams.has('page')) {
+            const queryPage = searchParams.get('page');
+            dispatch(paginateActions.setQueryPage(Number(queryPage)));
+            dispatch(paginateActions.setCurrentOffset((Number(queryPage) - 1) * 50));
+        }
+        if (!isQuery) {
+            dispatch(fetchTotalCountProducts());
+        }
+    }, [dispatch, isQuery, searchParams]);
+
+    useEffect(() => {
+        dispatch(fetchBrands());
+    }, [dispatch]);
+
+    useEffect(() => {
+        if (!isQuery) {
             dispatch(fetchProducts.all({ offset }));
         }
-    }, [dispatch, isQuery, offset]);
+    }, [dispatch, offset, isQuery]);
 
     const allProducts = useCallback(() => {
-        if (!isQuery) {
+        if (isQuery) {
             return products?.slice(offset, offset + 50);
         }
         return products;
-    }, [offset, products]);
+    }, [offset, products, isQuery]);
 
     return (
         <section className={styles.wrapper}>
@@ -43,7 +61,7 @@ const Main = () => {
                 <>
                     {queryValue && (
                         <Title weight='medium' size='h2'>
-                            {`Результатаы поиска по  
+                            {`Результаты поиска по  
                                 ${queryValue}`}
                         </Title>
                     )}

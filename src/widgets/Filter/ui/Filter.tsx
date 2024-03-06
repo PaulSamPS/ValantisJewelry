@@ -16,7 +16,7 @@ export const Filter = () => {
             <FilterByName />
             <FilterByPrice />
             <FilterByBrand />
-            <Button size='m' appearance='secondary' onClick={onQueryReset} disabled={isQuery || isLoading}>
+            <Button size='m' appearance='secondary' onClick={onQueryReset} disabled={!isQuery || isLoading}>
                 Сбросить фильтры
             </Button>
         </div>

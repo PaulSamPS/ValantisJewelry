@@ -37,7 +37,7 @@ export const FilterByBrand = () => {
         if (isBrandQuery) {
             dispatch(fetchProducts.byBrand({ brand: query === 'null' ? null : query }));
         }
-    }, [dispatch, searchParams]);
+    }, [dispatch, isBrandQuery, query]);
 
     return (
         <div className={styles.wrapper}>

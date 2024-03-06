@@ -14,16 +14,13 @@ export const Paginate = memo(({ currentPage, arr, isLoading }: PaginateProps) =>
     const start = arr[0];
     const end = arr.length - 1;
 
-    const handleClick = useCallback(
-        (number: number) => {
-            searchParams.set('page', `${number}`);
-            setSearchParams(searchParams);
-            dispatch(paginateActions.setCurrentPage(number));
-            dispatch(paginateActions.setCurrentOffset((number - 1) * 50));
-            window.scrollTo({ top: 0 });
-        },
-        [dispatch, searchParams]
-    );
+    const handleClick = useCallback((number: number) => {
+        searchParams.set('page', `${number}`);
+        setSearchParams(searchParams);
+        dispatch(paginateActions.setCurrentPage(number));
+        dispatch(paginateActions.setCurrentOffset((number - 1) * 50));
+        window.scrollTo({ top: 0 });
+    }, []);
 
     const constructPaginate = useCallback(
         (newSlideIndex: number) => {

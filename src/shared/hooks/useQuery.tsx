@@ -5,7 +5,7 @@ import { priceRub } from '@/shared/lib/priceRub';
 export const useQuery = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [queryValue, setQueryValue] = useState<string>('');
-    const [isQuery, setIsQuery] = useState<boolean>(false);
+    const [isQuery, setIsQuery] = useState<boolean>(true);
 
     const onQueryReset = () => {
         setSearchParams({ page: '1' });
@@ -14,10 +14,10 @@ export const useQuery = () => {
     useEffect(() => {
         if (searchParams.has('search')) {
             setQueryValue(`${searchParams.get('search')}`);
-            setIsQuery(false);
+            setIsQuery(true);
         } else if (searchParams.has('price')) {
             setQueryValue(`цене ${priceRub(Number(searchParams.get('price')))}`);
-            setIsQuery(false);
+            setIsQuery(true);
         } else if (searchParams.has('brand')) {
             const query = searchParams.get('brand');
             if (query === 'null') {
@@ -25,10 +25,10 @@ export const useQuery = () => {
             } else {
                 setQueryValue(`бренду ${searchParams.get('brand')}`);
             }
-            setIsQuery(false);
+            setIsQuery(true);
         } else {
             setQueryValue('');
-            setIsQuery(true);
+            setIsQuery(false);
         }
     }, [searchParams]);
 

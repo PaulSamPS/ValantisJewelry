@@ -2,6 +2,7 @@ import HTMLWebpackPlugin from 'html-webpack-plugin';
 import webpack from 'webpack';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import Dotenv from 'dotenv-webpack';
 import { BuildOptions } from './types/config';
 
 export function buildPlugins({ paths, isDev, apiUrl, baseUrl }: BuildOptions): webpack.WebpackPluginInstance[] {
@@ -19,6 +20,7 @@ export function buildPlugins({ paths, isDev, apiUrl, baseUrl }: BuildOptions): w
             __API__: JSON.stringify(apiUrl),
             __BASE_URL__: JSON.stringify(baseUrl),
         }),
+        new Dotenv(),
     ];
 
     if (isDev) {
