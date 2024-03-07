@@ -3,7 +3,7 @@ import { AppRouter } from '@/app/providers/Router';
 import { ThemeSwitcher } from '@/widgets/ThemeSwwitcher';
 import styles from './App.module.scss';
 import { Text } from '@/shared/ui/Text';
-import { ScrollUp } from '@/widgets/ScrollUp/ScrollUp';
+import { ScrollUp } from '@/widgets/ScrollUp';
 
 export const App = () => (
     <>

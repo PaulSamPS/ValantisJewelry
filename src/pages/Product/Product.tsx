@@ -3,16 +3,15 @@ import { useParams } from 'react-router';
 import { useSelector } from 'react-redux';
 import { Title } from '@/shared/ui/Title';
 import { useAppDispatch } from '@/shared/hooks';
-import { fetchProducts, productOneSelectors } from '@/entities/Products';
+import { fetchProducts, productOneReducer, productOneSelectors } from '@/entities/Products';
 import { DynamicModuleLoader, ReducerList } from '@/shared/lib/DynamicModuleLoader';
-import { productOneReducer } from '@/entities/Products/model/slice/product-one.slice';
 import { Spinner } from '@/shared/ui/Spinner';
 import styles from './Product.module.scss';
 import { BlockSecondaryBg } from '@/shared/ui/BlockSecondaryBg';
 import { Text } from '@/shared/ui/Text';
 import { priceRub } from '@/shared/lib/priceRub';
 import { AppLink } from '@/shared/ui/AppLink';
-import { AppRoutes } from '@/app/providers/Router/model/routerConfig';
+import { AppRoutes } from '@/app/providers/Router';
 import { ArrowUpIcon } from '@/shared/assets/icons';
 
 const PRODUCT_ONE_REDUCER: ReducerList = {

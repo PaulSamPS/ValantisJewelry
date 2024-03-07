@@ -2,7 +2,7 @@ import { UnknownAction, EnhancedStore, Reducer, ReducersMapObject } from '@redux
 import { AxiosInstance } from 'axios';
 import { ProductOneSchema, ProductsSchema } from '@/entities/Products';
 import { PaginatesSchema } from '@/features/Paginate';
-import { BrandsSchema } from '@/entities/Brands/model/types';
+import { BrandsSchema } from '@/entities/Brands';
 
 export interface StateSchema {
     products: ProductsSchema;

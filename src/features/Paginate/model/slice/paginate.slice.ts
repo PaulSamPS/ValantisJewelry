@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { PaginatesSchema } from '../types';
-import { fetchTotalCountProducts } from '../services/fetchTotalCountProducts';
+import { totalPages } from '../services/totalPages';
 
 const initialState: PaginatesSchema = {
     currentPage: 1,
@@ -34,11 +34,11 @@ export const paginateSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(fetchTotalCountProducts.pending, (state) => {
+            .addCase(totalPages.pending, (state) => {
                 state.error = undefined;
                 state.isLoading = true;
             })
-            .addCase(fetchTotalCountProducts.fulfilled, (state, action: PayloadAction<number>) => {
+            .addCase(totalPages.fulfilled, (state, action: PayloadAction<number>) => {
                 const newTotal: number[] = [];
                 for (let i = 1; i < action.payload + 1; i++) {
                     newTotal.push(i);
@@ -48,7 +48,7 @@ export const paginateSlice = createSlice({
                 state.error = undefined;
                 state.isLoading = false;
             })
-            .addCase(fetchTotalCountProducts.rejected, (state, action) => {
+            .addCase(totalPages.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
             });

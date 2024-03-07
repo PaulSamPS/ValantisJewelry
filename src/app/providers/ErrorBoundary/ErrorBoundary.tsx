@@ -1,6 +1,6 @@
 import React, { ReactNode, Suspense } from 'react';
 import { ErrorInfo } from 'react-dom/client';
-import { FetchError } from '@/widgets/FetchError';
+import { PageError } from '@/widgets/PageError';
 
 interface ErrorBoundaryProps {
     children: ReactNode;
@@ -31,7 +31,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
         if (hasError) {
             return (
                 <Suspense fallback=''>
-                    <FetchError />
+                    <PageError />
                 </Suspense>
             );
         }

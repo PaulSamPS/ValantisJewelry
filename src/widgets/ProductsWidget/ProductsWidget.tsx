@@ -4,14 +4,14 @@ import { useSearchParams } from 'react-router-dom';
 import { Spinner } from '@/shared/ui/Spinner';
 import { Title } from '@/shared/ui/Title';
 import { fetchProducts, productSelectors, ProductList } from '@/entities/Products';
-import { fetchTotalCountProducts, Paginate, paginateActions, paginateSelectors } from '@/features/Paginate';
+import { totalPages, Paginate, paginateActions, paginateSelectors } from '@/features/Paginate';
 import { useAppDispatch, useQuery } from '@/shared/hooks';
 
 export const ProductsWidget = () => {
     const isLoading = useSelector(productSelectors.isLoading);
     const products = useSelector(productSelectors.products);
     const error = useSelector(productSelectors.error);
-    const totalPages = useSelector(paginateSelectors.totalPages);
+    const total = useSelector(paginateSelectors.totalPages);
     const currentPage = useSelector(paginateSelectors.currentPage);
     const offset = useSelector(paginateSelectors.currentOffset);
     const { isQuery, queryValue } = useQuery();
@@ -25,7 +25,7 @@ export const ProductsWidget = () => {
             dispatch(paginateActions.setCurrentOffset((Number(queryPage) - 1) * 50));
         }
         if (!isQuery) {
-            dispatch(fetchTotalCountProducts());
+            dispatch(totalPages());
         }
     }, [dispatch, isQuery, searchParams]);
 
@@ -58,7 +58,7 @@ export const ProductsWidget = () => {
                 </>
             )}
             {totalPages?.length > 1 && !error && !isLoading && (
-                <Paginate currentPage={currentPage} arr={totalPages} isLoading={isLoading} />
+                <Paginate currentPage={currentPage} arr={total} isLoading={isLoading} />
             )}
         </>
     );

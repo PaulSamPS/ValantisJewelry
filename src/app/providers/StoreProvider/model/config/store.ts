@@ -4,7 +4,7 @@ import { createReducerManager } from './reduxManager';
 import { $apiAuth } from '@/shared/lib/axiosInterceptor';
 import { productsReducer } from '@/entities/Products';
 import { paginateReducer } from '@/features/Paginate';
-import { brandsReducer } from '@/entities/Brands/model/slice/brands.slice';
+import { brandsReducer } from '@/entities/Brands';
 
 export const createReduxStore = (initialState?: StateSchema, asyncReducers?: ReducersMapObject<StateSchema>) => {
     const rootReducers: ReducersMapObject<StateSchema> = {

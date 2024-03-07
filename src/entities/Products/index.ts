@@ -1,4 +1,5 @@
 export { productsReducer, productActions } from './model/slice/products.slice';
+export { productOneReducer, productOneActions } from './model/slice/product-one.slice';
 export { IProduct } from './model/types';
 export * as fetchProducts from './model/services';
 export * from './ui/ProductList/ProductList';

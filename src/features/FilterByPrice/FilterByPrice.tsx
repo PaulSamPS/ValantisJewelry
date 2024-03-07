@@ -2,11 +2,10 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '@/shared/hooks';
-import { byPrice } from '../../entities/Products/model/services/byPrice';
 import { Input } from '@/shared/ui/Input';
 import { Button } from '@/shared/ui/Button';
 import styles from './FilterByPrice.module.scss';
-import { productSelectors } from '@/entities/Products';
+import { productSelectors, fetchProducts } from '@/entities/Products';
 
 const REGEXP = /[\D]+/g;
 export const FilterByPrice = () => {
@@ -22,13 +21,13 @@ export const FilterByPrice = () => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         setSearchParams({ price: `${value}`, page: '1' });
-        dispatch(byPrice({ price: Number(value)! })).finally(() => setValue(''));
+        dispatch(fetchProducts.byPrice({ price: Number(value)! })).finally(() => setValue(''));
     };
 
     useEffect(() => {
         if (searchParams.get('price')) {
             const queryValue = searchParams.get('price');
-            dispatch(byPrice({ price: Number(queryValue!) }));
+            dispatch(fetchProducts.byPrice({ price: Number(queryValue!) }));
         }
     }, []);
 

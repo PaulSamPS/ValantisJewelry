@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
-import { IResponse } from '@/shared/types';
 import { removeDublicateString } from '@/shared/lib/removeDublicateString';
+import { IResponse } from '@/shared/types';
 
 const cache: Map<string, string[]> = new Map();
 
