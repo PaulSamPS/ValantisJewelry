@@ -1,6 +1,6 @@
+import { Navigate } from 'react-router-dom';
 import { Main } from '@/pages/Main';
 import { Product } from '@/pages/Product';
-import { NotFound } from '@/pages/NotFound';
 
 export enum AppRoutes {
     MAIN = 'main',
@@ -27,6 +27,6 @@ export const routeConfig: Record<AppRoutes, any> = {
     },
     [AppRoutes.NOT_FOUND]: {
         path: RouterPath.not_found,
-        element: <NotFound />,
+        element: <Navigate to='/' replace />,
     },
 };

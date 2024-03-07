@@ -10,7 +10,7 @@ export const App = () => (
         <header className={styles.header}>
             <nav className={styles.nav}>
                 <AppLink to={{ pathname: '/', search: 'page=1' }}>
-                    <img src='./assets/logo.png' alt='Logo' width={30} height={30} />
+                    <img src='/assets/logo.png' alt='Logo' width={30} height={30} />
                     <Text weight='medium'>Valantis</Text>
                 </AppLink>
             </nav>

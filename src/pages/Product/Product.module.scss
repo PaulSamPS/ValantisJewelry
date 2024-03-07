@@ -1,0 +1,16 @@
+.spinner {
+ min-height: calc(100vh - 141px);
+}
+
+.product {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ width: 100%;
+ min-height: calc(100vh - 141px);
+}
+
+.icon {
+ transform: rotate(-90deg);
+ margin-right: 5px;
+}

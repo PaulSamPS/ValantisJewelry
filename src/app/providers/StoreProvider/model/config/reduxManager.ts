@@ -14,7 +14,6 @@ export function createReducerManager(initialReducers: ReducersMapObject<StateSch
             if (keysToRemove.length > 0) {
                 state = { ...state };
                 keysToRemove.forEach((key) => {
-                    // @ts-ignore
                     delete state[key];
                 });
                 keysToRemove = [];
@@ -34,7 +33,6 @@ export function createReducerManager(initialReducers: ReducersMapObject<StateSch
             if (!key || !reducers[key]) {
                 return;
             }
-            // @ts-ignore
             delete reducers[key];
             keysToRemove.push(key);
 

@@ -9,35 +9,42 @@ interface IFilterByNameProps {
     brand: string | null;
 }
 
+const cache: Map<string, IProduct[]> = new Map();
+
 export const byBrand = createAsyncThunk<IProduct[], IFilterByNameProps, ThunkConfig<string>>(
     'filter/byBrand',
     async ({ brand }, thunkAPI) => {
         const { extra, dispatch, rejectWithValue } = thunkAPI;
         try {
-            const productsArr = await extra.apiAuth.post<IResponse>('', {
-                action: 'filter',
-                params: { brand },
-            });
+            if (!cache.has(brand!)) {
+                const productsArr = await extra.apiAuth.post<IResponse>('', {
+                    action: 'filter',
+                    params: { brand },
+                });
 
-            if (!productsArr.data) {
-                throw new Error();
+                if (!productsArr.data) {
+                    throw new Error();
+                }
+
+                const items = await extra.apiAuth.post<IProductResponse>('', {
+                    action: 'get_items',
+                    params: { ids: productsArr.data.result },
+                });
+
+                if (!items.data) {
+                    throw new Error();
+                }
+
+                const products = removeDuplicate(items.data.result);
+
+                dispatch(paginateActions.setTotalPages(Math.ceil(products.length / 50)));
+                cache.set(brand!, products);
+
+                return products;
             }
-
-            const items = await extra.apiAuth.post<IProductResponse>('', {
-                action: 'get_items',
-                params: { ids: productsArr.data.result },
-            });
-
-            if (!items.data) {
-                throw new Error();
-            }
-
-            const products = removeDuplicate(items.data.result);
-
-            dispatch(paginateActions.setTotalPages(Math.ceil(products.length / 50)));
-
-            return products;
+            return Array.from(cache.get(brand!)!);
         } catch (e) {
+            dispatch(byBrand({ brand }));
             return rejectWithValue('Ошибка загрузки данных');
         }
     }

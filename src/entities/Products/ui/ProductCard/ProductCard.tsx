@@ -4,13 +4,14 @@ import { Text } from '@/shared/ui/Text';
 import { priceRub } from '@/shared/lib/priceRub';
 import styles from './ProductCard.module.scss';
 import { AppLink } from '@/shared/ui/AppLink';
-import { Paragraph } from '@/shared/ui/Paragraph/Paragraph';
+import { Paragraph } from '@/shared/ui/Paragraph/ui/Paragraph';
+import { AppRoutes } from '@/app/providers/Router/model/routerConfig';
 
 interface IProductCard {
     product: IProduct;
 }
 export const ProductCard = ({ product }: IProductCard) => (
-    <AppLink to={`${__BASE_URL__}/product/${product.id}`} className={styles.card}>
+    <AppLink to={`${__BASE_URL__}/${AppRoutes.PRODUCT}/${product.id}`} className={styles.card}>
         <Text weight='medium' className={styles.id}>
             {product.id}
         </Text>

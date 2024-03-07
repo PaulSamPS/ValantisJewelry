@@ -1,7 +1,8 @@
 import axios from 'axios';
 import md5 from 'md5';
 
-const today = new Date().toISOString().slice(0, 10).split('-').join('');
+const today = new Date().toISOString().slice(0, 10).split('-')
+    .join('');
 
 const $apiAuth = axios.create({
     baseURL: __API__,
