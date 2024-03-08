@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { Title } from '@/shared/ui/Title';
 import { useAppDispatch } from '@/shared/hooks';
 import { fetchProducts, productOneReducer, productOneSelectors } from '@/entities/Products';
@@ -13,6 +14,7 @@ import { priceRub } from '@/shared/lib/priceRub';
 import { AppLink } from '@/shared/ui/AppLink';
 import { AppRoutes } from '@/app/providers/Router';
 import { ArrowUpIcon } from '@/shared/assets/icons';
+import { Button } from '@/shared/ui/Button';
 
 const PRODUCT_ONE_REDUCER: ReducerList = {
     productOne: productOneReducer,
@@ -22,6 +24,11 @@ const Product = () => {
     const dispatch = useAppDispatch();
     const product = useSelector(productOneSelectors.product);
     const isLoading = useSelector(productOneSelectors.isLoading);
+    const navigate = useNavigate();
+
+    const onGoBack = () => {
+        navigate(-1);
+    };
 
     useEffect(() => {
         dispatch(fetchProducts.one({ productId: id! }));
@@ -39,10 +46,10 @@ const Product = () => {
                     <Text weight='medium'>{product && product[0].id}</Text>
                     <Text weight='medium'>{product && product[0].brand}</Text>
                     <Text weight='medium'>{product && priceRub(product[0].price)}</Text>
-                    <AppLink to={`${__BASE_URL__}${AppRoutes.MAIN}`}>
+                    <Button appearance='clear' size='m' onClick={onGoBack}>
                         <ArrowUpIcon className={styles.icon} />
                         Назад
-                    </AppLink>
+                    </Button>
                 </BlockSecondaryBg>
             )}
         </DynamicModuleLoader>
