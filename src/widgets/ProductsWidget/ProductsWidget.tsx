@@ -57,7 +57,7 @@ export const ProductsWidget = () => {
                     <ProductList products={allProducts} error={error!} />
                 </>
             )}
-            {totalPages?.length > 1 && !error && !isLoading && (
+            {total?.length > 1 && !error && !isLoading && (
                 <Paginate currentPage={currentPage} arr={total} isLoading={isLoading} />
             )}
         </>

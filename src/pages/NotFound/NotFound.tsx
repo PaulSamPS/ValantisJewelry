@@ -7,7 +7,7 @@ const NotFound = () => {
     const navigate = useNavigate();
 
     const onNavigateToMain = () => {
-        navigate(__BASE_URL__);
+        navigate('/');
     };
 
     return (

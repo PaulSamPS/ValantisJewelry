@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   padding: 10px 0;
+  column-gap: 10px;
 }
 
 .brand {
@@ -16,4 +17,16 @@
 
 .price {
   justify-self: flex-end;
+  white-space: nowrap;
+}
+
+@media all and (max-width: 500px) {
+  .card {
+    grid-template-columns: 1fr;
+  }
+
+
+  .brand {
+    justify-self: flex-start;
+  }
 }

@@ -40,6 +40,7 @@ export const paginateSlice = createSlice({
             })
             .addCase(totalPages.fulfilled, (state, action: PayloadAction<number>) => {
                 const newTotal: number[] = [];
+
                 for (let i = 1; i < action.payload + 1; i++) {
                     newTotal.push(i);
                 }

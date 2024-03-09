@@ -15,9 +15,6 @@
 }
 
 .nav {
-  width: 30px;
-  height: 30px;
-
   a {
     display: flex;
     align-items: center;
@@ -33,7 +30,7 @@
 
 .main {
   flex: 1 0 auto;
-  width: 1200px;
+  max-width: 1200px;
   margin: 71px auto 20px;
 }
 
@@ -45,5 +42,6 @@
   height: 50px;
   border-top: 1px solid var(--border-color);
 }
+
 
 

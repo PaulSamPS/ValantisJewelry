@@ -2,7 +2,7 @@
   "name": "Valantis Jewelry",
   "version": "1.0.0",
   "description": "Test task valantis jewelry",
-  "homepage": "https://PaulSamPS.github.io/Valantis-Jewelry",
+  "homepage": "https://paulsamps.github.io/ValantisJewelry/",
   "scripts": {
     "build": "webpack",
     "start": "webpack serve --env port=3000",

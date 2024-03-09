@@ -14,7 +14,7 @@ export default (env: BuildEnv) => {
     const mode = env.mode || 'development';
     const isDev = mode === 'development';
     const apiUrl = env.apiUrl || 'https://api.valantis.store:41000/';
-    const baseUrl = env.baseUrl || 'http://localhost:3000';
+    const baseUrl = env.baseUrl || 'https://paulsamps.github.io/ValantisJewelry/';
 
     const PORT = env.port || 3000;
 

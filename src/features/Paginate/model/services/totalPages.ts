@@ -9,7 +9,7 @@ export const totalPages = createAsyncThunk<number, void, ThunkConfig<string>>(
     async (_, thunkAPI) => {
         const { extra, dispatch, rejectWithValue } = thunkAPI;
         try {
-            if (cache.has('all')) {
+            if (!cache.has('all')) {
                 const productsAll = await extra.apiAuth.post<IResponse>('', {
                     action: 'get_ids',
                 });
@@ -21,7 +21,6 @@ export const totalPages = createAsyncThunk<number, void, ThunkConfig<string>>(
                 const total = Math.ceil(removeDublicateString(productsAll.data.result).length / 50);
 
                 cache.set('all', total);
-
                 return total;
             }
             return Number(cache.get('all'));

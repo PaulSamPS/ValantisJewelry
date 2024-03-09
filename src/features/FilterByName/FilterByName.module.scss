@@ -3,3 +3,15 @@
   align-items: flex-end;
   column-gap: 20px;
 }
+
+
+@media all and (max-width: 1200px) {
+  .wrapper {
+    flex-direction: column;
+    row-gap: 20px;
+
+    button {
+      width: 100%;
+    }
+  }
+}
