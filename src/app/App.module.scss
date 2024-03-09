@@ -30,7 +30,7 @@
 
 .main {
   flex: 1 0 auto;
-  max-width: 1200px;
+  width: -webkit-fill-available;
   margin: 71px auto 20px;
 }
 

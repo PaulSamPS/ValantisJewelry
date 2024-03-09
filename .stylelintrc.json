@@ -9,6 +9,7 @@
       "files": ["**/*.sss"],
       "customSyntax": "sugarss",
       "rules": {
+
         "block-closing-brace-empty-line-before": null,
         "block-closing-brace-newline-after": null,
         "block-closing-brace-newline-before": null,
