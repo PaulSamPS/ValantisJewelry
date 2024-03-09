@@ -30,8 +30,9 @@
 
 .main {
   flex: 1 0 auto;
-  width: -webkit-fill-available;
+  width: fill-available;
   margin: 71px auto 20px;
+  max-width: 1200px;
 }
 
 .footer {
